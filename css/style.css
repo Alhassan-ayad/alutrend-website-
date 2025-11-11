@@ -1179,7 +1179,7 @@ form label.error{
   position: relative;
   display: block;
   float: left;
-  padding: 33px 0px;
+  padding: 60px 0px;
   transition: all 300ms ease;
   z-index: 5;
 }
@@ -1196,7 +1196,7 @@ form label.error{
 .main-header .main-box .logo-box .logo img{
   position: relative;
   display: block;
-  height: 80px;
+  height: 60px;
   z-index: 1;
   transition: all 300ms ease;
 }
@@ -4868,7 +4868,7 @@ body.visible-sidebar{
   position:relative;
   display: block;
   width: 100%;
-  padding: 300px 0px 0px;
+  padding: 185px 0px 0px;
   z-index: 10;
 }
 
@@ -5382,7 +5382,7 @@ body.visible-sidebar{
   top: 0;
   border: 15px solid transparent;
   border-top: 15px solid #ffffff;
-  border-right: 15px solid #ffffff;z
+  border-right: 15px solid #ffffff;
   z-index: 1;
 }
 
@@ -6150,7 +6150,7 @@ body.visible-sidebar{
 
 .sponsors-section{
   position: relative;
-  padding: 135px 0px;
+  padding: 0px 0px;
 }
 
 .sponsors-section .owl-dots{
