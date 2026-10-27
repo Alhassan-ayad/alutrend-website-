@@ -4,13 +4,31 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         const splashScreen = document.getElementById('splash-screen');
-        const splashVideo = document.getElementById('splash-video');
         const pageWrapper = document.querySelector('.page-wrapper');
         const skipButton = document.getElementById('skip-splash-btn');
+        const INTRO_DURATION = 11000;
 
-        if (!splashScreen || !splashVideo || !pageWrapper) {
+        if (!splashScreen || !pageWrapper) {
             return;
         }
+
+        // Build the typewriter lines: "white part|yellow part", one span per character
+        document.querySelectorAll('#splash-scene [data-type]').forEach(function(line) {
+            const parts = line.dataset.type.split('|');
+            const start = parseFloat(line.dataset.start) || 0;
+            const isDark = !!line.closest('.sp-text-dark');
+            const step = isDark ? 0.07 : 0.1;
+            let i = 0;
+            parts.forEach(function(part, p) {
+                Array.from(part).forEach(function(c) {
+                    const s = document.createElement('span');
+                    s.className = 'ch' + (p === 1 ? ' y' : '');
+                    s.textContent = c;
+                    s.style.animationDelay = (start + i++ * step) + 's';
+                    line.appendChild(s);
+                });
+            });
+        });
 
         // Check if splash screen has already been shown in this session
         const hasSeenSplash = sessionStorage.getItem('splashScreenShown');
@@ -36,8 +54,8 @@
             return;
         }
 
-        // End splash screen when video ends
-        splashVideo.addEventListener('ended', endSplashScreen);
+        // End splash screen when the intro animation finishes
+        setTimeout(endSplashScreen, INTRO_DURATION);
 
         // Skip button click handler
         if (skipButton) {
@@ -54,17 +72,5 @@
             }
         });
 
-        // Fallback: If video fails to load or takes too long
-        setTimeout(function() {
-            if (splashScreen.style.display !== 'none') {
-                endSplashScreen();
-            }
-        }, 10000); // 10 seconds max
-
-        // Handle video load error
-        splashVideo.addEventListener('error', function() {
-            console.log('Video failed to load, skipping splash screen');
-            endSplashScreen();
-        });
     });
 })();

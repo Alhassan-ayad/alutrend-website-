@@ -114,6 +114,123 @@
   object-fit: cover;
 }
 
+/* Generated intro: roller shutter opens, then the texts appear */
+#splash-scene {
+  --sp-yellow: #f5c400;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #050403;
+}
+
+/* Bright window behind the shutter; light floods in as the shutter lifts */
+.sp-window {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  padding: 0 4vw;
+  background: linear-gradient(180deg, #fffdf6 0%, #f3efe2 100%);
+  box-shadow: inset 0 0 12vw rgba(120, 100, 70, .45);
+  filter: brightness(0.05);
+  animation: sp-light 2.8s ease-in 3.6s forwards;
+}
+.sp-window i {
+  flex: 1;
+  margin: 0 1.2vw;
+  border: 1.1vw solid #e4dcc4;
+  border-bottom-width: 1.8vw;
+  background: linear-gradient(180deg, #ffffff, #f4f1e6);
+  box-shadow: inset 0 0 2vw rgba(0, 0, 0, .12), 0 0 1.5vw rgba(90, 70, 40, .35);
+}
+
+/* Shutter: dark slats with rows of light dashes, lifts upward */
+.sp-shutter {
+  position: absolute;
+  inset: 0;
+  background:
+    /* side guide rails + two dividers between the three window sections */
+    linear-gradient(90deg, #0a0604 0 2.5%, transparent 2.5% 31%, #0a0604 31% 33%, transparent 33% 64%, #0a0604 64% 66%, transparent 66% 97.5%, #0a0604 97.5%),
+    /* slats: lit top edge, body, shadowed bottom edge, dark joint */
+    repeating-linear-gradient(180deg, #6b5744 0 2px, #4a3a2c 2px 6px, #3a2d22 6px 22px, #1a110b 22px 24px, #0a0604 24px 26px);
+  box-shadow: 0 1.4vw 2vw rgba(0, 0, 0, .55);
+  animation: sp-lift 2.8s cubic-bezier(.55, .05, .35, 1) 3.6s forwards;
+}
+.sp-shutter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* a few short light slots per slat, not a continuous row of dots */
+  background: repeating-linear-gradient(90deg, rgba(255, 240, 210, .95) 0 14px, transparent 14px 56px);
+  -webkit-mask-image: repeating-linear-gradient(180deg, transparent 0 11px, #000 11px 14px, transparent 14px 26px);
+  mask-image: repeating-linear-gradient(180deg, transparent 0 11px, #000 11px 14px, transparent 14px 26px);
+  opacity: 0;
+  animation: sp-dots 1.6s ease-out .2s forwards;
+}
+/* Heavy bottom rail of the shutter */
+.sp-shutter::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22px;
+  background: linear-gradient(180deg, #4b3a2c, #130d08);
+}
+
+.sp-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 5vw;
+}
+.sp-text-dark { animation: sp-fade-out .9s ease-in 5.2s forwards; }
+.sp-text-light { opacity: 0; animation: sp-fade-in .6s ease-out 6.5s forwards; }
+
+.sp-line { white-space: nowrap; line-height: 1.15; }
+.sp-line .ch { opacity: 0; animation: sp-char .01s linear forwards; }
+
+.sp-l1 {
+  font: 700 clamp(22px, 3.4vw, 50px) 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .7);
+}
+.sp-l2 {
+  font: italic 400 clamp(30px, 5vw, 76px) 'Playfair Display', Georgia, serif;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .7);
+}
+.sp-l1 .y, .sp-l2 .y { color: var(--sp-yellow); }
+
+.sp-l3 {
+  font: 700 clamp(28px, 4.2vw, 62px) 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+  color: #0a0a0a;
+}
+.sp-l3 .y { color: var(--sp-yellow); }
+.sp-l4 {
+  font: 400 clamp(30px, 4.4vw, 64px) 'Mrs Saint Delafield', 'Segoe Script', cursive;
+  color: #1a1a1a;
+  opacity: 0;
+  padding: 0 .3em .1em;
+  clip-path: inset(-30% 100% -30% -30%);
+  animation: sp-write 1.6s ease-out 7.7s forwards;
+}
+
+@keyframes sp-dots { to { opacity: 1; } }
+@keyframes sp-lift { to { transform: translateY(-104%); } }
+@keyframes sp-light { to { filter: brightness(1); } }
+@keyframes sp-fade-out { to { opacity: 0; } }
+@keyframes sp-fade-in { to { opacity: 1; } }
+@keyframes sp-char { to { opacity: 1; } }
+@keyframes sp-write { 0% { opacity: 1; clip-path: inset(-30% 100% -30% -30%); } 100% { opacity: 1; clip-path: inset(-30% -30% -30% -30%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-shutter, .sp-window, .sp-text-dark, .sp-text-light, .sp-l4 { animation-duration: .01s; }
+}
+
 .skip-splash-button {
   position: fixed;
   bottom: 30px;

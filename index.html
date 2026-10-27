@@ -5,6 +5,7 @@
 <title>Archway HTML Template - Home 01</title>
 <!-- Stylesheets -->
 <link href="css/bootstrap.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@700&family=Playfair+Display:ital,wght@1,400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/jquery.fancybox.min.css" rel="stylesheet">
 <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
@@ -15,16 +16,25 @@
 <link href="css/responsive.css" rel="stylesheet">
 <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]--> 
 
+<script src="js/site-content.js"></script>
 </head>
 
 <body>
   <!-- Splash Screen -->
   <div id="splash-screen">
-    <video id="splash-video" autoplay muted playsinline>
-      <source src="images/splashscreen video/Untitledundefined (1).mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <button id="skip-splash-btn" class="skip-splash-button">Skip Video</button>
+    <div id="splash-scene" aria-hidden="true">
+      <div class="sp-window"><i></i><i></i><i></i></div>
+      <div class="sp-shutter"></div>
+      <div class="sp-text sp-text-dark">
+        <div class="sp-line sp-l1" data-type="See The |Innovation." data-start="1.0"></div>
+        <div class="sp-line sp-l2" data-type="Feel the |Quality." data-start="2.3"></div>
+      </div>
+      <div class="sp-text sp-text-light">
+        <div class="sp-line sp-l3" data-type="Alu|trend" data-start="6.6"></div>
+        <div class="sp-line sp-l4">Since 1983</div>
+      </div>
+    </div>
+    <button id="skip-splash-btn" class="skip-splash-button">Skip Intro</button>
   </div>
 
   <div class="page-wrapper"> 
